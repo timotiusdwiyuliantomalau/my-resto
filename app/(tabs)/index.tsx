@@ -13,6 +13,7 @@ import Star from "@expo/vector-icons/AntDesign";
 import { getCategories, getLists } from "@/firebase/service.data";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
+import NavigationBar from "../navigation";
 
 const Homepage = () => {
   const [categories, setCategories] = useState<any>([]);
@@ -34,22 +35,11 @@ const Homepage = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
+      <NavigationBar></NavigationBar>
       {/* Header */}
-      <View style={styles.header}>
-        {/* Location Bar */}
-        <View style={styles.locationBar}>
-          <Icon name="bars" size={24} color="gray" />
-          <View style={styles.locationText}>
-            <Text style={styles.locationSubtext}>Location</Text>
-            <Text style={styles.locationMain}>7ay El-Gamaa St., Mansoura</Text>
-          </View>
-          <Image
-            source={{ uri: "https://picsum.com/40x40" }}
-            style={styles.profileImage}
-          />
-        </View>
-
+      <ScrollView style={styles.header}>
+        {/* Nav */}
         {/* New Recipe */}
         <View style={styles.recipeCard}>
           <View style={styles.recipeContent}>
@@ -121,12 +111,22 @@ const Homepage = () => {
                 flexDirection: "row",
                 flexWrap: "wrap",
                 justifyContent: "space-between",
-                columnGap: 10,
-                gap: 20,
+                columnGap: 5,
+                gap: 25,
+                paddingBottom: 20,
+                paddingHorizontal: 5,
               }}
             >
               {list?.map((item: any, index: number) => (
-                  <View key={index} style={styles.recommendationCard}>
+                <Link
+                  style={styles.recommendationLink}
+                  key={index}
+                  href={{
+                    pathname: "/(tabs)/detail",
+                    params: { data: JSON.stringify(item) },
+                  }}
+                >
+                  <View style={styles.recommendationCard}>
                     <View style={styles.imageBadgeContainer}>
                       <Image
                         source={{ uri: item?.strMealThumb }}
@@ -150,37 +150,25 @@ const Homepage = () => {
                       {item?.strMeal}
                     </Text>
                     <View style={styles.recommendationDetails}>
-                      <View style={{ flexDirection: "row" }}>
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} name="star" size={12} color="yellow" />
-                        ))}
-                      </View>
+                      <Text>${item.price}</Text>
                       <Text style={styles.recommendationMeta}>34 mins</Text>
                     </View>
                   </View>
+                </Link>
               ))}
             </View>
           </ScrollView>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f3f3f3" },
-  header: { paddingHorizontal: 18, backgroundColor: "#fff", borderRadius: 8 },
+  container: { flex: 1 },
+  header: { paddingHorizontal: 18, backgroundColor: "#fff" },
   statusText: { color: "gray" },
   statusIcons: { flexDirection: "row", gap: 8 },
-  locationBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 16,
-  },
-  locationText: { alignItems: "center" },
-  locationSubtext: { color: "gray" },
-  locationMain: { fontWeight: "bold", fontSize: 16 },
-  profileImage: { width: 40, height: 40, borderRadius: 20 },
   recipeCard: {
     backgroundColor: "#007aff",
     padding: 16,
@@ -211,7 +199,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 10,
   },
-  sectionTitle: { fontWeight: "bold", fontSize: 16 },
+  sectionTitle: { fontWeight: "bold", fontSize: 16, marginBottom: 5 },
   sectionLink: { color: "#007aff" },
   categoryItem: { alignItems: "center", marginRight: 16 },
   categoryImage: {
@@ -220,14 +208,19 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   categoryText: { fontSize: 12 },
-  recommendationCard: {
+  recommendationLink: {
     width: "48%",
     height: 280,
-    overflow: "hidden",
-    borderWidth: 0.3,
-    borderColor: "gray",
-    borderRadius: 10,
-    paddingBottom: 15,
+    borderRadius: 20,
+    elevation: 4,
+  },
+
+  recommendationCard: {
+    width: "100%",
+    height: 280,
+    paddingBottom: 25,
+    backgroundColor: "#fff",
+    borderRadius: 20,
   },
   imageBadgeContainer: { width: "100%", height: "80%", borderRadius: 8 },
   recommendationImage: { width: "100%", height: "100%", borderRadius: 8 },
