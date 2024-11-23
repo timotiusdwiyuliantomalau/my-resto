@@ -38,14 +38,18 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {!isLogin ? (
+      {isLogin ? (
         <AuthScreen></AuthScreen>
       ) : (
         <>
           <NavigationBar></NavigationBar>
           <Stack>
             <Stack.Screen name="search" options={{ headerShown: false }} />
-            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="index"
+              options={{ headerShown: false }}
+              
+            />
             <Stack.Screen name="detail" options={{ headerShown: false }} />
             <Stack.Screen name="cart" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
