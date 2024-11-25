@@ -15,14 +15,15 @@ import { View } from "react-native";
 import NavigationBar from "./header-footer/header";
 import TabBar from "./header-footer/footer";
 import AuthScreen from "./auth";
+import AuthProvider from "./auth/auth_provider";
+import App from "./app";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const [isLogin, setIsLogin] = React.useState(false);
-  const [loaded] = useFonts({
+const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
@@ -38,26 +39,10 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {isLogin ? (
-        <AuthScreen></AuthScreen>
-      ) : (
-        <>
-          <NavigationBar></NavigationBar>
-          <Stack>
-            <Stack.Screen name="search" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="index"
-              options={{ headerShown: false }}
-              
-            />
-            <Stack.Screen name="detail" options={{ headerShown: false }} />
-            <Stack.Screen name="cart" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-          <TabBar></TabBar>
-        </>
-      )}
+      <AuthProvider>
+      <App></App>
       <StatusBar style="auto" />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
