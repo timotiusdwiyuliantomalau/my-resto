@@ -5,6 +5,8 @@ import { Stack } from "expo-router";
 import TabBar from "./header-footer/footer";
 import { useAuth } from "./auth/auth_provider";
 import { getUserData } from "@/services/service.storage";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Drawer } from "expo-router/drawer";
 
 export default function App() {
   const { isLogin, setIsLogin } = useAuth();
@@ -25,14 +27,18 @@ export default function App() {
       )}
       {typeof isLogin != "undefined" && isLogin == true && (
         <>
-          <NavigationBar></NavigationBar>
-          <Stack>
+          {/* <NavigationBar></NavigationBar> */}
+          <GestureHandlerRootView>
+            <Drawer>
+            </Drawer>
+          </GestureHandlerRootView>
+          {/* <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="search" options={{ headerShown: false }} />
             <Stack.Screen name="detail" options={{ headerShown: false }} />
             <Stack.Screen name="cart" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
-          </Stack>
+          </Stack> */}
           <TabBar></TabBar>
         </>
       )}

@@ -11,6 +11,8 @@ import Icon from "@expo/vector-icons/FontAwesome5";
 import { handleLogout } from "@/services/service.auth";
 import React from "react";
 import { useAuth } from "../auth/auth_provider";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Drawer } from "expo-router/drawer";
 
 export default function NavigationBar() {
   const { setIsLogin } = useAuth();

@@ -9,9 +9,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Icon from "@expo/vector-icons/FontAwesome5";
-import { getCart, getCategories, getLists, updateMenu } from "@/firebase/service.data";
+import {
+  getCart,
+  getCategories,
+  getLists,
+  updateMenu,
+} from "@/firebase/service.data";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
+import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
 
 const Homepage = () => {
   const [categories, setCategories] = useState<any>([]);
@@ -32,12 +38,27 @@ const Homepage = () => {
     setList(result);
   }
 
+  const renderRightActions = () => (
+    <TouchableOpacity  style={styles.deleteButton}>
+      <Text style={styles.buttonText}>Delete</Text>
+    </TouchableOpacity>
+  );
+
+
   return (
     <View style={styles.container}>
       {/* Header */}
+
       <ScrollView style={styles.header}>
         {/* Nav */}
         {/* New Recipe */}
+        <GestureHandlerRootView>
+        <Swipeable renderRightActions={renderRightActions}>
+      <View style={styles.itemContainer}>
+        <Text style={styles.itemText}>Halo Guys</Text>
+      </View>
+    </Swipeable>
+        </GestureHandlerRootView>
         <View style={styles.recipeCard}>
           <View style={styles.recipeContent}>
             <View>
@@ -245,6 +266,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   recommendationMeta: { marginLeft: 8, fontSize: 10, color: "black" },
+  itemContainer: {
+    padding: 20,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  itemText: {
+    fontSize: 18,
+  },
+  deleteButton: {
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: '100%',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
 
 export default Homepage;
