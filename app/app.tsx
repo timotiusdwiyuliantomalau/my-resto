@@ -30,6 +30,13 @@ export default function App() {
           {/* <NavigationBar></NavigationBar> */}
           <GestureHandlerRootView>
             <Drawer>
+              <Drawer.Screen
+              name="kambing" // This is the name of the page and must match the url from root
+                options={{
+                  drawerLabel: "Kambing",
+                  title: "kambing",
+                }}
+              />
             </Drawer>
           </GestureHandlerRootView>
           {/* <Stack>
