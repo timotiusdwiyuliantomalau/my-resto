@@ -27,8 +27,8 @@ export default function App() {
       )}
       {typeof isLogin != "undefined" && isLogin == true && (
         <>
-          {/* <NavigationBar></NavigationBar> */}
-          <GestureHandlerRootView>
+          <NavigationBar></NavigationBar>
+          {/* <GestureHandlerRootView>
             <Drawer>
               <Drawer.Screen
               name="kambing" // This is the name of the page and must match the url from root
@@ -38,14 +38,14 @@ export default function App() {
                 }}
               />
             </Drawer>
-          </GestureHandlerRootView>
-          {/* <Stack>
+          </GestureHandlerRootView> */}
+          <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="search" options={{ headerShown: false }} />
             <Stack.Screen name="detail" options={{ headerShown: false }} />
             <Stack.Screen name="cart" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
-          </Stack> */}
+          </Stack>
           <TabBar></TabBar>
         </>
       )}
