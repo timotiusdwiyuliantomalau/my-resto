@@ -176,7 +176,7 @@ export default function CustomDrawer() {
           ]}
         >
           <Pressable onPress={() => {}}>
-          <Text style={styles.mainText}>Main Screen</Text>
+            <Text style={styles.mainText}>Main Screen</Text>
           </Pressable>
         </Animated.View>
       </PanGestureHandler>

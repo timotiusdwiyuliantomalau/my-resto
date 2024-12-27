@@ -1,17 +1,13 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "jsx": "react", // Gunakan "react" untuk React atau "react-jsx" untuk React 17+
+    "allowJs": true, // (Opsional) Untuk mendukung file .js bersama TypeScript
+    "esModuleInterop": true, // (Opsional) Untuk kompatibilitas dengan modul CommonJS
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

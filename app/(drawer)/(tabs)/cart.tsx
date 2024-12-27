@@ -9,7 +9,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { useAuth } from "./auth/auth_provider";
+import { useAuth } from "../../auth/auth_provider";
 import { ColorTheme } from "@/assets/colors";
 
 export default function CartScreen() {

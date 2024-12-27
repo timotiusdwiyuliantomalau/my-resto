@@ -38,10 +38,10 @@ const [loaded] = useFonts({
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={DefaultTheme}>
       <AuthProvider>
       <App></App>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
       </AuthProvider>
     </ThemeProvider>
   );

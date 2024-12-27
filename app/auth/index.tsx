@@ -10,7 +10,7 @@ import { useAuth } from "./auth_provider";
 
 export default function AuthScreen() {
   const [auth, setAuth] = React.useState("login");
-  const { inputAuth, setInputAuth, setIsLogin } = useAuth();
+  const { inputAuth, setIsLogin } = useAuth();
 
   return (
     <View style={styles.container}>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   wrapper: {
-    width: "100%",
+    width: "90%",
     maxWidth: 350,
   },
   logoContainer: {

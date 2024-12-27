@@ -17,10 +17,15 @@ import {
 } from "@/firebase/service.data";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link } from "expo-router";
-import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
+import {
+  GestureHandlerRootView,
+  Swipeable,
+} from "react-native-gesture-handler";
+import { ColorTheme } from "@/assets/colors";
 
 const Homepage = () => {
   const [categories, setCategories] = useState<any>([]);
+  const [chooseCategory, setChooseCategory] = useState<string>("");
   const [list, setList] = useState<any>([]);
 
   useEffect(() => {
@@ -32,18 +37,18 @@ const Homepage = () => {
   }, []);
 
   async function handleSetCategory(category: string) {
+    if (category == chooseCategory)
+      getLists().then((res: any) => {
+        AsyncStorage.setItem("listMenu", res.data);
+        setList(JSON.parse(res.data));
+        return setChooseCategory("");
+      });
     const list = await AsyncStorage.getItem("listMenu");
     const res = list && JSON.parse(list);
     const result = res.filter((item: any) => item.strCategory == category);
+    setChooseCategory(category);
     setList(result);
   }
-
-  const renderRightActions = () => (
-    <TouchableOpacity  style={styles.deleteButton}>
-      <Text style={styles.buttonText}>Delete</Text>
-    </TouchableOpacity>
-  );
-
 
   return (
     <View style={styles.container}>
@@ -52,13 +57,6 @@ const Homepage = () => {
       <ScrollView style={styles.header}>
         {/* Nav */}
         {/* New Recipe */}
-        <GestureHandlerRootView>
-        <Swipeable renderRightActions={renderRightActions}>
-      <View style={styles.itemContainer}>
-        <Text style={styles.itemText}>Halo Guys</Text>
-      </View>
-    </Swipeable>
-        </GestureHandlerRootView>
         <View style={styles.recipeCard}>
           <View style={styles.recipeContent}>
             <View>
@@ -108,7 +106,13 @@ const Homepage = () => {
                 >
                   <Image
                     source={{ uri: item.strCategoryThumb }}
-                    style={styles.categoryImage}
+                    style={[
+                      styles.categoryImage,
+                      {
+                        borderColor: ColorTheme.GREEN,
+                        borderWidth: chooseCategory == item.strCategory ? 3 : 0,
+                      },
+                    ]}
                   />
                   <Text style={styles.categoryText}>{item.strCategory}</Text>
                 </TouchableOpacity>
@@ -136,7 +140,7 @@ const Homepage = () => {
               }}
             >
               {list?.map((item: any, index: number) => {
-                if (index < 30)
+                if (index < 40)
                   return (
                     <Link
                       style={styles.recommendationLink}
@@ -268,23 +272,23 @@ const styles = StyleSheet.create({
   recommendationMeta: { marginLeft: 8, fontSize: 10, color: "black" },
   itemContainer: {
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: "#ccc",
   },
   itemText: {
     fontSize: 18,
   },
   deleteButton: {
-    backgroundColor: 'red',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
     width: 100,
-    height: '100%',
+    height: "100%",
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
 });
 
