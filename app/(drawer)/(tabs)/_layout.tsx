@@ -55,7 +55,7 @@ export default function TabLayout() {
                     alignSelf: "center",
                   }}
                 >
-                  <IconSymbol size={28} name="search" color={color} />
+                  <IconSymbol size={28} name="compass" color={color} />
                   <ActiveIcon name="circle" style={{display:focused?"flex":"none"}} size={6} color={color}></ActiveIcon>
                 </View>
               ),
